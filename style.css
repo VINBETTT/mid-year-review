@@ -280,3 +280,27 @@ p {
         min-height: 220px;
     }
 }
+
+/* Mobile Touch Cursor Effect */
+#touch-cursor {
+    position: fixed;
+    width: 64px; /* Larger for finger visibility */
+    height: 64px;
+    margin-left: -32px;
+    margin-top: -32px;
+    background-image: url('cursor.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transform: scale(0.3);
+    transition: opacity 0.15s ease-out, transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#touch-cursor.active {
+    opacity: 1;
+    transform: scale(1);
+    /* No transition on left/top to allow instant following of the finger */
+}

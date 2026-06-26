@@ -1,27 +1,40 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Add subtle hover effect to cards
-    const cards = document.querySelectorAll('.glass-card');
+    // Create the custom touch cursor element
+    const cursor = document.createElement('div');
+    cursor.id = 'touch-cursor';
+    document.body.appendChild(cursor);
+
+    let isTouch = false;
+
+    // Detect if the user is using a touch device
+    window.addEventListener('touchstart', () => {
+        isTouch = true;
+    }, { once: true });
+
+    // When the screen is touched
+    document.addEventListener('touchstart', (e) => {
+        if (!isTouch) return;
+        const touch = e.touches[0];
+        cursor.style.left = touch.clientX + 'px';
+        cursor.style.top = touch.clientY + 'px';
+        cursor.classList.add('active');
+    }, { passive: true });
+
+    // When the finger moves on the screen
+    document.addEventListener('touchmove', (e) => {
+        if (!isTouch) return;
+        const touch = e.touches[0];
+        cursor.style.left = touch.clientX + 'px';
+        cursor.style.top = touch.clientY + 'px';
+    }, { passive: true });
+
+    // When the finger leaves the screen
+    document.addEventListener('touchend', () => {
+        cursor.classList.remove('active');
+    });
     
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // x position within the element
-            const y = e.clientY - rect.top;  // y position within the element
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            // Very subtle tilt for a professional feel
-            const rotateX = ((y - centerY) / centerY) * -2; 
-            const rotateY = ((x - centerX) / centerX) * 2;
-            
-            card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateY(0)';
-        });
+    // Also handle touch cancel
+    document.addEventListener('touchcancel', () => {
+        cursor.classList.remove('active');
     });
 });
