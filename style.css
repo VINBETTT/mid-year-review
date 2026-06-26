@@ -1,0 +1,282 @@
+:root {
+    --bg: #F4F4F5; 
+    --card-bg: #FFFFFF;
+    --text-primary: #18181B;
+    --text-secondary: #71717A;
+    --border: rgba(0,0,0,0.06);
+    
+    --green: #10B981;
+    --blue: #3B82F6;
+    --purple: #8B5CF6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    cursor: url('cursor.png') 16 16, auto;
+}
+
+/* The Bento Grid */
+.bento-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px; /* Reduced from 240px to tighten up the layout */
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Base Bento Box Styles */
+.bento-box {
+    background: var(--card-bg);
+    border-radius: 28px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid var(--border);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    z-index: 1;
+}
+
+.bento-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+/* Premium Shine Effect on Hover */
+.bento-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.dark-theme::after {
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+}
+
+.bento-box:hover::after {
+    animation: shine 0.7s ease-in-out;
+}
+
+@keyframes shine {
+    0% { left: -150%; }
+    100% { left: 200%; }
+}
+
+/* Background Watermark Icons to fill empty space */
+.watermark {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 160px;
+    opacity: 0.03;
+    z-index: -1;
+    pointer-events: none;
+    color: var(--text-primary);
+    transform: rotate(-15deg);
+}
+
+.dark-theme .watermark {
+    opacity: 0.05;
+    color: #ffffff;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.role-title {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.25;
+}
+
+p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Specific Box Placements */
+.box-profile {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: linear-gradient(135deg, #ffffff 0%, #f4f4f5 100%);
+    padding: 40px;
+}
+
+.box-acc1 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.box-acc2 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.box-acc3 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.box-goal1 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.box-goal2 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+/* Dark Theme for Goals */
+.dark-theme {
+    background: #18181B;
+    color: #FFFFFF;
+    border: none;
+}
+
+.dark-theme h2 {
+    color: #FFFFFF;
+}
+
+.dark-theme p {
+    color: #A1A1AA;
+}
+
+/* Profile Elements */
+.profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.bento-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 25%;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.badge {
+    background: var(--text-primary);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.profile-bottom .motto {
+    margin-top: 24px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Icons */
+.bento-icon {
+    font-size: 32px;
+    margin-bottom: auto;
+}
+
+.accent-green { color: var(--green); }
+.accent-blue { color: var(--blue); }
+.accent-purple { color: var(--purple); }
+
+.text-gradient {
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Labels */
+.bento-label {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: rgba(0,0,0,0.25);
+}
+
+.dark-theme .bento-label {
+    color: rgba(255,255,255,0.3);
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: fadeInSpring 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes fadeInSpring {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Responsive Grid */
+@media (max-width: 900px) {
+    .bento-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(180px, auto);
+    }
+    .box-profile { grid-column: span 2; grid-row: span 1; }
+    .box-acc2 { grid-column: span 1; }
+    .box-acc3 { grid-column: span 1; }
+}
+
+@media (max-width: 600px) {
+    .bento-container {
+        grid-template-columns: 1fr;
+    }
+    .box-profile, .box-acc1, .box-acc2, .box-acc3, .box-goal1, .box-goal2 {
+        grid-column: span 1;
+        min-height: 220px;
+    }
+}
