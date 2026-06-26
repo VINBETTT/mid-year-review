@@ -4,28 +4,23 @@ document.addEventListener('DOMContentLoaded', () => {
     cursor.id = 'touch-cursor';
     document.body.appendChild(cursor);
 
-    let isTouch = false;
-
-    // Detect if the user is using a touch device
-    window.addEventListener('touchstart', () => {
-        isTouch = true;
-    }, { once: true });
-
     // When the screen is touched
     document.addEventListener('touchstart', (e) => {
-        if (!isTouch) return;
-        const touch = e.touches[0];
-        cursor.style.left = touch.clientX + 'px';
-        cursor.style.top = touch.clientY + 'px';
-        cursor.classList.add('active');
+        if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            cursor.style.left = touch.clientX + 'px';
+            cursor.style.top = touch.clientY + 'px';
+            cursor.classList.add('active');
+        }
     }, { passive: true });
 
     // When the finger moves on the screen
     document.addEventListener('touchmove', (e) => {
-        if (!isTouch) return;
-        const touch = e.touches[0];
-        cursor.style.left = touch.clientX + 'px';
-        cursor.style.top = touch.clientY + 'px';
+        if (e.touches.length > 0) {
+            const touch = e.touches[0];
+            cursor.style.left = touch.clientX + 'px';
+            cursor.style.top = touch.clientY + 'px';
+        }
     }, { passive: true });
 
     // When the finger leaves the screen
